@@ -1,1 +1,638 @@
-<doc></doc>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAMCOM - Láminas y Complementos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header superior */
+        .top-header {
+            background: linear-gradient(135deg, #1a4d6e 0%, #2a5f7e 100%);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box {
+            background: white;
+            padding: 10px;
+            border: 3px solid #7ec850;
+            border-radius: 5px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(180deg, #fff 0%, #ddd 100%);
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            background: #666;
+            top: 20%;
+            box-shadow: 0 15px 0 #666, 0 30px 0 #666;
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo-text p {
+            color: #7ec850;
+            font-size: 12px;
+            letter-spacing: 3px;
+            margin-top: -5px;
+        }
+
+        .header-message {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: left;
+            flex: 1;
+            margin: 0 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .header-marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: headerMarquee 15s linear infinite;
+        }
+
+        @keyframes headerMarquee {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .phone-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .phone-icon {
+            width: 40px;
+            height: 40px;
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Contenedor principal */
+        .main-container {
+            background: #f5f5f5;
+            min-height: calc(100vh - 90px);
+            padding: 50px;
+            position: relative;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        /* Sección izquierda */
+        .left-section h2 {
+            color: #1a4d6e;
+            font-size: 52px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .left-section h3 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .left-section h3 span.green {
+            color: #7ec850;
+            font-weight: bold;
+        }
+
+        .left-section h3 span.blue {
+            color: #1a4d6e;
+        }
+
+        .subtitle {
+            color: #1a4d6e;
+            font-size: 18px;
+            font-style: italic;
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn::before {
+            content: '📱';
+            font-size: 36px;
+        }
+
+        .bottom-message {
+            color: #1a4d6e;
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        /* Sección derecha - Carrusel */
+        .right-section {
+            position: relative;
+        }
+
+        .carousel-container {
+            position: relative;
+        }
+
+        /* Imagen principal */
+        .main-image-container {
+            position: relative;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+            background: white;
+        }
+
+        .recommended-title {
+            color: #1a4d6e;
+            font-size: 28px;
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Complementos */
+        .complementos-container {
+            background: linear-gradient(135deg, #1a4d6e 0%, #2a5f7e 100%);
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complementos-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><path d="M0,5 Q25,0 50,5 T100,5 L100,10 L0,10 Z" fill="white" opacity="0.3"/></svg>');
+            background-size: 200px 15px;
+        }
+
+        .complementos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .complemento-item {
+            background: white;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        .complemento-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .complemento-item span {
+            color: #1a4d6e;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Controles del carrusel */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .carousel-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: #7ec850;
+            transform: scale(1.3);
+        }
+
+        /* Botón WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Fade animation */
+        .fade {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header superior -->
+    <div class="top-header">
+        <div class="logo">
+            <div class="logo-box">
+                <div class="logo-icon"></div>
+            </div>
+            <div class="logo-text">
+                <h1>LAMCOM</h1>
+                <p>LÁMINAS Y COMPLEMENTOS</p>
+            </div>
+        </div>
+        <div class="header-message">
+            <span id="headerMarqueeText" class="header-marquee-text">¡Tu mejor opción en precio, calidad y servicio!</span>
+        </div>
+        <div class="phone-contact">
+            <div class="phone-icon">📞</div>
+            <span>33 1959 0140</span>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Sección izquierda -->
+            <div class="left-section">
+                <h2>Láminas y Complementos</h2>
+                <h3><span class="blue"></span>Soluciones en</span> <span class="green">Lámina,</span></h3>
+                <h3><span class="green">Aislamientos y más,</span> <span class="blue">al Mejor Precio</span></h3>
+                
+                <p class="subtitle">
+                    Materiales certificados, asesoría profesional y entregas rápidas<br>
+                    para proyectos industriales, comerciales y residenciales.
+                </p>
+
+                <button class="whatsapp-btn">Cotiza hoy</button>
+
+                <p class="bottom-message">¡Cotiza hoy y te mejoramos cualquier precio!</p>
+            </div>
+
+            <!-- Sección derecha - Carrusel -->
+            <div class="right-section">
+                <div class="carousel-container">
+                    <!-- Imagen principal -->
+                    <div class="main-image-container">
+                        <img id="mainImage" class="main-image fade" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 350'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23bbb'/%3E%3Cstop offset='100%25' stop-color='%23ddd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%3E%3Cpath d='M 50 100 L 100 50 L 150 100 L 150 300 L 50 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 150 100 L 200 50 L 250 100 L 250 300 L 150 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 250 100 L 300 50 L 350 100 L 350 300 L 250 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 350 100 L 400 50 L 450 100 L 450 300 L 350 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 450 100 L 500 50 L 550 100 L 550 300 L 450 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 550 100 L 600 50 L 650 100 L 650 300 L 550 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 650 100 L 700 50 L 750 100 L 750 300 L 650 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E" alt="Lámina">
+                    </div>
+
+                    <p class="recommended-title">Complementos recomendados:</p>
+
+                    <!-- Complementos -->
+                    <div class="complementos-container">
+                        <div class="complementos-grid" id="complementosGrid">
+                            <div class="complemento-item fade">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='30' width='80' height='50' rx='5' fill='%23f0f0f0' stroke='%23999' stroke-width='2'/%3E%3Crect x='15' y='35' width='70' height='40' fill='%23fff'/%3E%3Ccircle cx='30' cy='55' r='8' fill='%23ddd'/%3E%3Ccircle cx='70' cy='55' r='8' fill='%23ddd'/%3E%3C/svg%3E" alt="Termofoam">
+                                <span>Termofoam</span>
+                            </div>
+                            <div class="complemento-item fade">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='35' y='10' width='30' height='70' rx='3' fill='%23fff' stroke='%23666' stroke-width='2'/%3E%3Crect x='40' y='15' width='20' height='50' fill='%23e74c3c'/%3E%3Ccircle cx='50' cy='80' r='8' fill='%23666'/%3E%3Ctext x='50' y='45' text-anchor='middle' font-size='12' fill='%23fff'%3ESEAL%3C/text%3E%3C/svg%3E" alt="Sellador">
+                                <span>Sellador</span>
+                            </div>
+                            <div class="complemento-item fade">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='8' fill='%23555' stroke='%23333' stroke-width='2'/%3E%3Crect x='25' y='25' width='50' height='50' fill='%23888'/%3E%3Cline x1='30' y1='30' x2='70' y2='70' stroke='%23666' stroke-width='3'/%3E%3Cline x1='70' y1='30' x2='30' y2='70' stroke='%23666' stroke-width='3'/%3E%3C/svg%3E" alt="Canalon">
+                                <span>Canalón</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles del carrusel -->
+                    <div class="carousel-controls">
+                        <button class="carousel-dot active" onclick="changeSlide(0)"></button>
+                        <button class="carousel-dot" onclick="changeSlide(1)"></button>
+                        <button class="carousel-dot" onclick="changeSlide(2)"></button>
+                        <button class="carousel-dot" onclick="changeSlide(3)"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp flotante -->
+    <div class="whatsapp-float">💬</div>
+
+    <script>
+        // Mensajes rotativos del header
+        const headerMessages = [
+            '¡Tu mejor opción en precio, calidad y servicio!',
+            'Materiales certificados y entregas rápidas',
+            'Asesoría profesional para tus proyectos',
+            'Calidad, precio y servicio en un solo lugar'
+        ];
+
+        const headerMarqueeEl = document.getElementById('headerMarqueeText');
+
+        let currentHeaderMessage = 0;
+
+        function rotateHeaderMessage() {
+            if (!headerMarqueeEl) return;
+            currentHeaderMessage = (currentHeaderMessage + 1) % headerMessages.length;
+            headerMarqueeEl.textContent = headerMessages[currentHeaderMessage];
+        }
+
+        if (headerMarqueeEl) {
+            headerMarqueeEl.textContent = headerMessages[0];
+            setInterval(rotateHeaderMessage, 8000);
+        }
+
+        // Datos del carrusel
+        const carouselData = [
+            {
+                mainImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 350'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23bbb'/%3E%3Cstop offset='100%25' stop-color='%23ddd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%3E%3Cpath d='M 50 100 L 100 50 L 150 100 L 150 300 L 50 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 150 100 L 200 50 L 250 100 L 250 300 L 150 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 250 100 L 300 50 L 350 100 L 350 300 L 250 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 350 100 L 400 50 L 450 100 L 450 300 L 350 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 450 100 L 500 50 L 550 100 L 550 300 L 450 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 550 100 L 600 50 L 650 100 L 650 300 L 550 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3Cpath d='M 650 100 L 700 50 L 750 100 L 750 300 L 650 300 Z' fill='url(%23g1)' stroke='%23888' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E",
+                complementos: [
+                    { name: "Termofoam", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='10' y='30' width='80' height='50' rx='5' fill='%23f0f0f0' stroke='%23999' stroke-width='2'/%3E%3Crect x='15' y='35' width='70' height='40' fill='%23fff'/%3E%3Ccircle cx='30' cy='55' r='8' fill='%23ddd'/%3E%3Ccircle cx='70' cy='55' r='8' fill='%23ddd'/%3E%3C/svg%3E" },
+                    { name: "Sellador", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='35' y='10' width='30' height='70' rx='3' fill='%23fff' stroke='%23666' stroke-width='2'/%3E%3Crect x='40' y='15' width='20' height='50' fill='%23e74c3c'/%3E%3Ccircle cx='50' cy='80' r='8' fill='%23666'/%3E%3Ctext x='50' y='45' text-anchor='middle' font-size='12' fill='%23fff'%3ESEAL%3C/text%3E%3C/svg%3E" },
+                    { name: "Canalón", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='20' y='20' width='60' height='60' rx='8' fill='%23555' stroke='%23333' stroke-width='2'/%3E%3Crect x='25' y='25' width='50' height='50' fill='%23888'/%3E%3Cline x1='30' y1='30' x2='70' y2='70' stroke='%23666' stroke-width='3'/%3E%3Cline x1='70' y1='30' x2='30' y2='70' stroke='%23666' stroke-width='3'/%3E%3C/svg%3E" }
+                ]
+            },
+            {
+                mainImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 350'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0%25' stop-color='%23cd7f32'/%3E%3Cstop offset='100%25' stop-color='%23b8860b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='100' y='80' width='600' height='220' fill='url(%23g2)' stroke='%23654321' stroke-width='3'/%3E%3Cg%3E%3Cline x1='100' y1='130' x2='700' y2='130' stroke='%23654321' stroke-width='2'/%3E%3Cline x1='100' y1='180' x2='700' y2='180' stroke='%23654321' stroke-width='2'/%3E%3Cline x1='100' y1='230' x2='700' y2='230' stroke='%23654321' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E",
+                complementos: [
+                    { name: "Tornillos", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='30' r='15' fill='%23888' stroke='%23333' stroke-width='2'/%3E%3Crect x='45' y='30' width='10' height='50' fill='%23999'/%3E%3Cpath d='M 40 35 L 60 35 L 60 37 L 40 37 Z M 40 40 L 60 40 L 60 42 L 40 42 Z M 40 45 L 60 45 L 60 47 L 40 47 Z' fill='%23666'/%3E%3C/svg%3E" },
+                    { name: "Bisagras", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='20' y='30' width='25' height='40' rx='3' fill='%23777' stroke='%23333' stroke-width='2'/%3E%3Crect x='55' y='30' width='25' height='40' rx='3' fill='%23777' stroke='%23333' stroke-width='2'/%3E%3Ccircle cx='32' cy='40' r='3' fill='%23333'/%3E%3Ccircle cx='68' cy='40' r='3' fill='%23333'/%3E%3Ccircle cx='32' cy='60' r='3' fill='%23333'/%3E%3Ccircle cx='68' cy='60' r='3' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23555' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E" },
+                    { name: "Pintura", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='30' y='20' width='40' height='60' rx='3' fill='%23e8e8e8' stroke='%23666' stroke-width='2'/%3E%3Crect x='33' y='25' width='34' height='40' fill='%233498db'/%3E%3Cpath d='M 30 20 L 35 10 L 65 10 L 70 20 Z' fill='%23999' stroke='%23666' stroke-width='2'/%3E%3C/svg%3E" }
+                ]
+            },
+            {
+                mainImage: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 350'%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fff'/%3E%3Cstop offset='100%25' stop-color='%23f0f0f0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='150' y='100' width='500' height='180' fill='url(%23g3)' stroke='%23999' stroke-width='2'/%3E%3Cg%3E%3Ccircle cx='250' cy='150' r='15' fill='none' stroke='%23ddd' stroke-width='8'/%3E%3Ccircle cx='350' cy='150' r='15' fill='none' stroke='%23ddd' stroke-width='8'/%3E%3Ccircle cx='450' cy='150' r='15' fill='none' stroke='%23ddd' stroke-width='8'/%3E%3Ccircle cx='550' cy='150' r='15' fill='none' stroke='%23ddd' stroke-width='8'/%3E%3C/g%3E%3C/svg%3E",
+                complementos: [
+                    { name: "Adhesivo", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='30' ry='40' fill='%23ffd700' stroke='%23b8860b' stroke-width='2'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='14' font-weight='bold' fill='%23333'%3EGLUE%3C/text%3E%3C/svg%3E" },
+                    { name: "Cinta", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='35' fill='%23444' stroke='%23222' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23fff' stroke='%23222' stroke-width='2'/%3E%3Cpath d='M 50 15 L 55 20 L 50 25 Z' fill='%23e74c3c'/%3E%3C/svg%3E" },
+                    { name: "Guantes", img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 30 30 L 30 70 L 40 75 L 50 70 L 60 75 L 70 70 L 70 30 Q 50 20 30 30 Z' fill='%23ffa500' stroke='%23d97706' stroke-width='2'/%3E%3Cpath d='M 35 35 L 35 50' stroke='%23d97706' stroke-width='2'/%3E%3Cpath d='M 45 32 L 45 50' stroke='%23d97706' stroke-width='2'/%3E%3Cpath d='M 55 32 L 55 50' stroke='%23d97706' stroke-width='2'/%3E%3Cpath d='M 65 35 L 65 50' stroke='%23d97706' stroke-width='2'/%3E%3C/svg%3E" },
+                ]
+            }
+        ];
+
+        let currentSlide = 0;
+        const mainImageEl = document.getElementById('mainImage');
+        const complementosGridEl = document.getElementById('complementosGrid');
+        const dots = document.querySelectorAll('.carousel-dot');
+
+        function renderComplementos(index) {
+            const slide = carouselData[index];
+            if (!slide) return;
+
+            complementosGridEl.innerHTML = '';
+
+            slide.complementos.forEach((comp) => {
+                const item = document.createElement('div');
+                item.className = 'complemento-item fade';
+
+                const img = document.createElement('img');
+                img.src = comp.img;
+                img.alt = comp.name;
+
+                const span = document.createElement('span');
+                span.textContent = comp.name;
+
+                item.appendChild(img);
+                item.appendChild(span);
+
+                complementosGridEl.appendChild(item);
+            });
+        }
+
+        function changeSlide(index) {
+            if (index < 0 || index >= carouselData.length) return;
+
+            currentSlide = index;
+
+            const slide = carouselData[index];
+            mainImageEl.classList.remove('fade');
+            void mainImageEl.offsetWidth;
+            mainImageEl.src = slide.mainImage;
+            mainImageEl.classList.add('fade');
+
+            renderComplementos(index);
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Inicializar carrusel con el primer slide
+        changeSlide(0);
+
+        // Auto-rotación del carrusel cada 5 segundos
+        setInterval(() => {
+            const nextIndex = (currentSlide + 1) % carouselData.length;
+            changeSlide(nextIndex);
+        }, 5000);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 2da seccion scroll de provedores -->
+
+
+<!-- Carrusel de proveedores -->
+<section class="marcas-carousel" style="background-color: white; padding: 1.5rem 0; margin: 0; overflow: hidden;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+      <div class="marcas-track" style="display: flex; align-items: center; justify-content: space-around; animation: scroll 20s linear infinite; width: calc(250px * 10);">
+        <!-- Logos de proveedores - se duplican para el efecto de scroll infinito -->
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_isocindu.webp" alt="proveedor 1" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_Proveedor_Kingspan.webp" alt="proveedor 2" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_owens.webp" alt="proveedor 3" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_stabilit.webp" alt="proveedor 4" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_Ternium.webp" alt="proveedor 5" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedores_termofoam.webp" alt="proveedor 6" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <!-- Duplicar los logos para el efecto de scroll infinito -->
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_isocindu.webp" alt="proveedor 1" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_Proveedor_Kingspan.webp" alt="proveedor 2" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_owens.webp" alt="proveedor 3" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_stabilit.webp" alt="proveedor 4" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedor_Ternium.webp" alt="proveedor 5" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+        <div class="marcas-slide" style="flex-shrink: 0; padding: 0 15px;">
+          <img src="images/2da seccion/Logo_proveedores_termofoam.webp" alt="proveedor 6" style="height: 60px; width: auto; object-fit: contain; ">
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * 5)); }
+      }
+      .marcas-slide img:hover {
+        filter: grayscale(0) opacity(1) !important;
+        transform: scale(1.05);
+      }
+      @media (max-width: 768px) {
+        .marcas-track {
+          animation: scroll 15s linear infinite !important;
+          width: calc(200px * 10) !important;
+        }
+        .marcas-slide img {
+          height: 50px !important;
+        }
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-200px * 5)); }
+        }
+      }
+    </style>
+  </section>
+
+
+
+
+
+
+
+
+</body>
+</html>
