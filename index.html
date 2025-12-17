@@ -117,6 +117,13 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            color: white;
+        }
+
+        .phone-icon::before {
+            content: "\260E"; /* símbolo de teléfono ☎ como texto, no emoji */
+            font-size: 20px;
+            color: white;
         }
 
         /* Contenedor principal */
@@ -183,6 +190,7 @@
             margin: 30px 0;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
             transition: transform 0.3s;
+
         }
 
         .whatsapp-btn:hover {
@@ -453,8 +461,8 @@
             <span id="headerMarqueeText" class="header-marquee-text">¡Tu mejor opción en precio, calidad y servicio!</span>
         </div>
         <div class="phone-contact">
-            <div class="phone-icon">📞</div>
-            <span>33 1959 0140</span>
+            <div class="phone-icon"></div>
+            <a href="https://wa.me/523312195252" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">33 1219 5252</a>
         </div>
     </div>
 
@@ -472,8 +480,7 @@
                     para proyectos industriales, comerciales y residenciales.
                 </p>
 
-                <button class="whatsapp-btn">Cotiza hoy</button>
-
+                <a class="whatsapp-btn" href="https://wa.me/523312195252" target="_blank" rel="noopener noreferrer">Cotiza hoy</a>
                 <p class="bottom-message">¡Cotiza hoy y te mejoramos cualquier precio!</p>
             </div>
 
@@ -798,6 +805,33 @@
             animation: scc3-fadeInDown 0.8s ease forwards;
         }
 
+        .scc3-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .scc3-tab {
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid #2c5282;
+            background: rgba(255,255,255,0.7);
+            color: #2c5282;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .scc3-tab.scc3-active {
+            background: #2c5282;
+            color: white;
+            box-shadow: 0 6px 16px rgba(44, 82, 130, 0.35);
+        }
+
         .scc3-carousel-wrapper {
             position: relative;
             opacity: 0;
@@ -1025,13 +1059,15 @@
             border-radius: 50px;
             cursor: pointer;
             margin-top: 50px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            display: inline-block;
             box-shadow: 0 10px 30px #003661;
             transition: all 0.3s ease;
             opacity: 0;
             animation: scc3-fadeInUp 0.8s ease 2.2s forwards;
+        }
+
+        .scc3-cta-wrapper {
+            text-align: center;
         }
 
         .scc3-cta-button:hover {
@@ -1119,6 +1155,16 @@
                 font-size: 1.8rem;
             }
 
+            .scc3-tabs {
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .scc3-tab {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
             .scc3-complements {
                 flex-wrap: wrap;
             }
@@ -1140,6 +1186,8 @@
     <div class="scc3-container">
         <h1 class="scc3-title">Expertos en Soluciones para Techos, Muros y Aislamientos</h1>
 
+        <div class="scc3-tabs" id="scc3Tabs"></div>
+
         <div class="scc3-carousel-wrapper">
             <div class="scc3-carousel-container">
                 <div class="scc3-left-section">
@@ -1159,7 +1207,9 @@
                 <button class="scc3-nav-btn" onclick="scc3NextProduct()">›</button>
             </div>
 
-            <button class="scc3-cta-button">Cotizar Hoy</button>
+            <div class="scc3-cta-wrapper">
+                <a class="scc3-cta-button" href="https://wa.me/523312195252" target="_blank" rel="noopener noreferrer">Cotizar Hoy</a>
+            </div>
         </div>
     </div>
 
@@ -1306,10 +1356,6 @@
                 rightSection: `
                     <div class="scc3-product-code">${product.code}</div>
                     <div class="scc3-product-description">${product.description}</div>
-                    <div class="scc3-characteristics-title">CARACTERÍSTICAS DEL PRODUCTO</div>
-                    ${product.characteristics.map(char => `
-                        <div class="scc3-characteristic">– ${char}</div>
-                    `).join('')}
                 `
             };
         }
@@ -1351,6 +1397,11 @@
             document.querySelectorAll('.scc3-indicator').forEach((indicator, i) => {
                 indicator.classList.toggle('scc3-active', i === index);
             });
+
+            // Update tabs
+            document.querySelectorAll('.scc3-tab').forEach((tab, i) => {
+                tab.classList.toggle('scc3-active', i === index);
+            });
         }
 
         function scc3NextProduct() {
@@ -1372,11 +1423,20 @@
         function scc3Init() {
             // Create indicators
             const indicatorsContainer = document.getElementById('scc3Indicators');
-            scc3Products.forEach((_, index) => {
+            const tabsContainer = document.getElementById('scc3Tabs');
+
+            scc3Products.forEach((product, index) => {
                 const indicator = document.createElement('div');
                 indicator.className = 'scc3-indicator' + (index === 0 ? ' scc3-active' : '');
                 indicator.onclick = () => scc3GoToProduct(index);
                 indicatorsContainer.appendChild(indicator);
+
+                const tab = document.createElement('button');
+                tab.className = 'scc3-tab' + (index === 0 ? ' scc3-active' : '');
+                tab.type = 'button';
+                tab.textContent = product.code;
+                tab.onclick = () => scc3GoToProduct(index);
+                tabsContainer.appendChild(tab);
             });
 
             // Load first product
@@ -1488,17 +1548,37 @@
       }
 
       .sec4-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
+        grid-template-areas:
+          "top-left top-right"
+          "bottom-left bottom-right";
         gap: 0;
       }
 
       .sec4-block {
         min-height: 320px;
+      }
+
+      .sec4-block--top-left {
+        grid-area: top-left;
+      }
+
+      .sec4-block--top-right {
+        grid-area: top-right;
+      }
+
+      .sec4-block--bottom-left {
+        grid-area: bottom-left;
+      }
+
+      .sec4-block--bottom-right {
+        grid-area: bottom-right;
       }
 
       .sec4-block--text {
@@ -1532,7 +1612,7 @@
 
       .sec4-block--image {
         background-color: #ffffff;
-        margin: 0 -20px;
+        margin: 0;
       }
 
       .sec4-img {
@@ -1547,7 +1627,12 @@
         .sec4-grid {
           grid-template-columns: 1fr;
           grid-template-rows: auto auto auto auto;
-          padding: 0 16px;
+          grid-template-areas:
+            "top-right"      /* imagen 1 */
+            "top-left"       /* texto 1 */
+            "bottom-left"    /* imagen 2 */
+            "bottom-right";  /* texto 2 */
+          padding: 0;
         }
 
         .sec4-block {
@@ -1555,7 +1640,7 @@
         }
 
         .sec4-block--image {
-          margin: 0 -16px;
+          margin: 0;
         }
 
         .sec4-title {
@@ -1599,7 +1684,7 @@
 
 <!-- 5ta seccion  seccion de reseñas-->
 <!--SECCIÓN 5 seccion de reseñas -->
-<section class="s5" style="overflow: hidden; background: linear-gradient(135deg, #0a1429 0%, #606060 50%, #606060 100%); padding: 60px 0 80px; position: relative;">
+<section class="s5" style="overflow: hidden; background: linear-gradient(135deg, #499642 0%, #499642 50%, #499642 100%); padding: 60px 0 80px; position: relative;">
     <!-- Efectos de fondo -->
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1; background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);"></div>
     
@@ -2706,10 +2791,8 @@
 
 
 
-  <!-- 6ta seccion  seccion de contactos-->
+
 <section> 
-
-
 <!-- 6ta seccion ya cuentas con cotizacion -->
 <style>
         .seccion6-container {
@@ -2730,14 +2813,14 @@
         .seccion6-title {
             font-size: 2.5rem;
             font-weight: 600;
-            font-size: 50px;
+            font-size: 80px;
             color: #333;
             margin-bottom: 20px;
             line-height: 1.3;
         }
 
         .seccion6-subtitle {
-            font-size: 1.3rem;
+            font-size: 2.8rem;
             color: #666;
             margin-bottom: 40px;
             font-size: 30px;
@@ -2795,11 +2878,11 @@
 
         @media (max-width: 768px) {
             .seccion6-title {
-                font-size: 1.8rem;
+                font-size: 2.8rem;
             }
 
             .seccion6-subtitle {
-                font-size: 1.1rem;
+                font-size: 1.6rem;
             }
 
             .seccion6-buttons {
@@ -2825,13 +2908,13 @@
                 Envía tu cotización y la mejoramos al momento.
             </p>
             <div class="seccion6-buttons">
-                <a href="https://wa.me/3318088119" class="seccion6-btn seccion6-btn-whatsapp" target="_blank">
+                <a href="https://wa.me/3312195252" class="seccion6-btn seccion6-btn-whatsapp" target="_blank">
                     <svg class="seccion6-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                     </svg>
                     Mensaje
                 </a>
-                <a href="tel:+523318088119" class="seccion6-btn seccion6-btn-call">
+                <a href="tel:+523312195252" class="seccion6-btn seccion6-btn-call">
                     <svg class="seccion6-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
                     </svg>
@@ -2840,10 +2923,6 @@
             </div>
         </div>
     </section>
-
-
-
-
 </section>
 
 
@@ -2897,7 +2976,7 @@
           <div class="sucursal-info">
             <h3>SUCURSAL PANEL PERIFÉRICO</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #AE1916;"></i> Av. Periférico Pte. Manuel Gómez Morin 2880<br>Paraísos del Colli CP. 45069 Zapopan, Jal.</p>
-            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3318088119">33 1808 8119</a></p>
+            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3312195252">33 1219 5252</a></p>
             <p><i class="fas fa-envelope" style="color: #AE1916;"></i> <a href="mailto:ventas@lesamx.com">ventas@lesamx.com</a></p>
             <a href="https://www.google.com/maps/place/Av+Perif%C3%A9rico+Pte+Manuel+G%C3%B3mez+Morin+2880,+Para%C3%ADsos+del+Colli,+45069+Zapopan,+Jal.,+M%C3%A9xico/@20.6907,-103.4185,17z/data=!3m1!4b1!4m5!3m4!1s0x8428ae4a6f0f2f1f:0x1c9f1c9f1c9f1c9f!8m2!3d20.6907!4d-103.4185" target="_blank" class="ver-mapa" style="color: #AE1916;">
               <i class="fas fa-map-marked-alt" style="color: #AE1916;"></i> Ver en mapa
@@ -2913,7 +2992,7 @@
           <div class="sucursal-info">
             <h3>SUCURSAL PERIFÉRICO</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #AE1916;"></i> Av. Perif. Pte. Manuel Gómez Morin 2790-D<br>Paraísos del Colli CP. 45069 Zapopan, Jal.</p>
-            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3318088119">33 1808 8119</a></p>
+            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3312195252">33 1219 5252</a></p>
             <p><i class="fas fa-envelope" style="color: #AE1916;"></i> <a href="mailto:ventas@lesamx.com">ventas@lesamx.com</a></p>
             <a href="https://www.google.com/maps/place/Av+Perif%C3%A9rico+Pte+Manuel+G%C3%B3mez+Morin+2790-D,+Para%C3%ADsos+del+Colli,+45069+Zapopan,+Jal.,+M%C3%A9xico/@20.6910,-103.4200,17z/data=!3m1!4b1!4m5!3m4!1s0x8428ae4a6f0f2f1f:0x1c9f1c9f1c9f1c9f!8m2!3d20.6910!4d-103.4200" target="_blank" class="ver-mapa" style="color: #AE1916;">
               <i class="fas fa-map-marked-alt" style="color: #AE1916;"></i> Ver en mapa
@@ -2929,7 +3008,7 @@
           <div class="sucursal-info">
             <h3>SUCURSAL JUAN GIL PRECIADO</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #AE1916;"></i> Lat. Juan Gil Preciado 4176<br>Hogares de Nuevo México CP. 45160 Zapopan, Jal.</p>
-            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3318088119">33 1808 8119</a></p>
+            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3312195252">33 1219 5252</a></p>
             <p><i class="fas fa-envelope" style="color: #AE1916;"></i> <a href="mailto:ventas@lesamx.com">ventas@lesamx.com</a></p>
             <a href="https://www.google.com/maps/place/Lat+Juan+Gil+Preciado+4176,+Hogares+de+Nuevo+M%C3%A9xico,+45160+Zapopan,+Jal.,+M%C3%A9xico/@20.6745,-103.4567,17z/data=!3m1!4b1!4m5!3m4!1s0x8428b3f9f9f9f9f9:0x1c9f1c9f1c9f1c9f!8m2!3d20.6745!4d-103.4567" target="_blank" class="ver-mapa" style="color: #AE1916;">
               <i class="fas fa-map-marked-alt" style="color: #AE1916;"></i> Ver en mapa
@@ -2945,7 +3024,7 @@
           <div class="sucursal-info">
             <h3>SUCURSAL PUNTO SUR</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #AE1916;"></i> Av. Camino Real a Colima 150<br>CP. 45602 San Pedro Tlaquepaque</p>
-            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3318088119">33 1808 8119</a></p>
+            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3312195252">33 1219 5252</a></p>
             <p><i class="fas fa-envelope" style="color: #AE1916;"></i> <a href="mailto:ventas@lesamx.com">ventas@lesamx.com</a></p>
             <a href="https://www.google.com/maps/place/Av+Camino+Real+a+Colima+150,+San+Pedro+Tlaquepaque,+Jal.,+M%C3%A9xico/@20.6083,-103.4187,17z/data=!3m1!4b1!4m5!3m4!1s0x8428b3f9f9f9f9f9:0x1c9f1c9f1c9f1c9f!8m2!3d20.6083!4d-103.4187" target="_blank" class="ver-mapa" style="color: #AE1916;">
               <i class="fas fa-map-marked-alt" style="color: #AE1916;"></i> Ver en mapa
@@ -2961,7 +3040,7 @@
           <div class="sucursal-info">
             <h3>SUCURSAL COLIMA</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #AE1916;"></i> Blvrd Camino Real 670<br>Residencial Los Olivos El Provenir II<br>CP. 28019 Col, Colima.</p>
-            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3318088119">33 1808 8119</a></p>
+            <p><i class="fas fa-phone" style="color: #AE1916;"></i> <a href="tel:3312195252">33 1219 5252</a></p>
             <p><i class="fas fa-envelope" style="color: #AE1916;"></i> <a href="mailto:ventas@lesamx.com">ventas@lesamx.com</a></p>
             <a href="https://www.google.com/maps/place/Blvd+Camino+Real+670,+Residencial+Los+Olivos,+28019+Colima,+Col.,+M%C3%A9xico/@19.2678,-103.7229,17z/data=!3m1!4b1!4m5!3m4!1s0x84255e9f9f9f9f9f:0x1c9f1c9f1c9f1c9f!8m2!3d19.2678!4d-103.7229" target="_blank" class="ver-mapa" style="color: #AE1916;">
               <i class="fas fa-map-marked-alt" style="color: #AE1916;"></i> Ver en mapa
@@ -2988,7 +3067,7 @@
   
     .sucursales h2 {
       text-align: center;
-      color: #333;
+      color: #ffffff;
       margin-bottom: 1rem;
       font-size: 2.2rem;
     }
@@ -3301,8 +3380,8 @@
         
         <!-- Acciones rápidas (solo móvil) -->
         <div class="footer-actions" aria-label="Acciones rápidas">
-          <a class="btn-action btn-call" href="tel:3318088119"><i class="fas fa-phone"></i> Llamar</a>
-          <a class="btn-action btn-wa" href="https://wa.me/3318088119" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a class="btn-action btn-call" href="tel:3312195252"><i class="fas fa-phone"></i> Llamar</a>
+          <a class="btn-action btn-wa" href="https://wa.me/3312195252" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
         </div>
 
         <div class="footer-info">
@@ -3330,15 +3409,17 @@
               <path fill="white" d="M279.14 288l14.22-92.66h-88.91V127.41c0-25.35 12.42-50.06 52.24-50.06H295V6.26S277.43 0 260.19 0c-73.22 0-121.17 44.38-121.17 124.72v70.62H89.09V288h49.93v224h100.17V288z"/>
             </svg>
           </a>
-          <a href="https://wa.me/3318088119" aria-label="WhatsApp">
+          <a href="https://wa.me/3312195252" aria-label="WhatsApp">
             <svg width="18" height="18" viewBox="0 0 448 512" aria-hidden="true">
               <path fill="white" d="M380.9 97.1C339 55.1 283.2 32 223.9 32 103.5 32 8 127.5 8 247.9c0 43.7 11.4 86.2 33.1 123.6L0 480l112.7-40.5c35.3 19.2 74.9 29.3 115.2 29.3h.1c120.3 0 215.9-95.5 215.9-215.9 0-59.3-23.1-115.1-65-157.1zM223.9 438.6h-.1c-36.2 0-71.6-9.7-102.5-28.1l-7.3-4.3-66.8 24 22.4-68.9-4.8-7.1C48 323.8 37.7 286.4 37.7 247.9 37.7 145.4 121.4 61.7 223.9 61.7c54.3 0 105.3 21.1 143.6 59.4 38.3 38.3 59.4 89.3 59.4 143.6 0 112.6-91.4 214-203 214z"/>
               <path fill="white" d="M325.4 308.9c-5.4-2.7-32-15.8-36.9-17.6-5-1.9-8.6-2.7-12.2 2.7-3.7 5.4-14 17.6-17.1 21.3-3.1 3.7-6.3 4.1-11.7 1.4-31.7-15.8-52.5-28.3-73.3-64.1-5.5-9.5 5.5-8.8 15.8-29.3 1.7-3.7.9-6.9-.5-9.6-1.4-2.7-12.2-29.3-16.7-40.2-4.4-10.6-8.9-9.2-12.2-9.4-3.1-.2-6.9-.2-10.6-.2s-9.6 1.4-14.6 6.9c-5 5.4-19.2 18.7-19.2 45.6 0 26.9 19.7 52.9 22.4 56.6 2.7 3.7 38.9 59.4 94.2 83.4 35 15.1 48.7 16.4 66.2 13.8 10.6-1.6 32.9-13.4 37.6-26.4 4.7-13 4.7-24.1 3.3-26.4-1.3-2.5-4.9-3.9-10.3-6.6z"/>
             </svg>
           </a>
           <a href="#" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 448 512" aria-hidden="true">
-              <path fill="white" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.9 224.1 370.9 339 319.6 339 255.9 287.7 141 224.1 141zm0 188.6c-40.6 0-73.7-33.1-73.7-73.7s33.1-73.7 73.7-73.7 73.7 33.1 73.7 73.7-33.1 73.7-73.7 73.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9S367.5 18.7 331.6 17C295.2 15.2 152.9 15.2 116.5 17 80.6 18.7 48.8 27 22.5 53.2-3.7 79.5-12 111.3-13.7 147.2-15.5 183.6-15.5 325.9-13.7 362.3c1.7 35.9 9.9 67.7 36.2 93.9s58 34.5 93.9 36.2c36.4 1.8 178.7 1.8 215.1 0 35.9-1.7 67.7-9.9 93.9-36.2s34.5-58 36.2-93.9c1.8-36.4 1.8-178.7 0-215.1z"/>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="white" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="1.8"/>
+              <circle cx="17" cy="7" r="1.1" fill="white"/>
             </svg>
           </a>
         </div>
@@ -3349,7 +3430,7 @@
   <style>
     /* Footer Styles */
     .footer {
-      background: linear-gradient(5deg, #606060 0%, #606060 100%);
+      background: linear-gradient(5deg, #499642 0%, #499642 100%);
       color: #606060;
       padding: 0;
       margin-top: 0;
@@ -3463,14 +3544,14 @@
       justify-content: space-between;
       align-items: center;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid #003661;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
     .footer-bottom p {
       margin: 0;
-      color: BLACK;
+      color: #003661;
       font-size: 0.9rem;
     }
 
@@ -3485,7 +3566,7 @@
       justify-content: center;
       width: 40px;
       height: 40px;
-      background: BLACK;
+      background: #003661;
       border-radius: 50%;
       color: white;
       text-decoration: none;
@@ -3494,7 +3575,7 @@
     }
 
     .footer-social a:hover {
-      background: BLACK;
+      background: #003661;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
@@ -3502,6 +3583,12 @@
     .footer-social i {
       font-size: 1.1rem;
       color: white;
+    }
+
+    .footer-social svg {
+      width: 18px;
+      height: 18px;
+      display: block;
     }
 
     /* Acciones rápidas (móvil) */
@@ -3519,8 +3606,8 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     .btn-action:active { transform: scale(0.98); }
-    .btn-call { background: BLACK; }
-    .btn-wa { background: BLACK; }
+    .btn-call { background: #003661; }
+    .btn-wa { background: #003661; }
 
     /* Responsive Footer */
     @media (max-width: 768px) {
